@@ -1,0 +1,196 @@
+# PATHS WORKING
+included: # paths to include during linting. `--path` is ignored if present.
+- ./Modules
+- ./movieshelf
+
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+- Pods
+
+# ---------------------------------------------------------------------------
+
+# SWIFTLINT RULES
+
+disabled_rules: # rule identifiers to exclude from running
+    - line_length
+    - identifier_name
+    - todo
+    - function_parameter_count
+    - function_body_length
+    - type_name
+    - nesting
+    - force_cast
+    - large_tuple
+    - cyclomatic_complexity
+    - sorted_imports
+    - number_separator
+    - type_body_length
+    - vertical_parameter_alignment
+
+analyzer_rules:
+    - unused_declaration
+    - unused_import
+
+opt_in_rules:
+    - anyobject_protocol
+    - array_init
+    - attributes
+    - closure_end_indentation
+    - closure_spacing
+    - collection_alignment
+    - contains_over_filter_count
+    - contains_over_filter_is_empty
+    - contains_over_first_not_nil
+    - discouraged_object_literal
+    - empty_count
+    - empty_string
+    - empty_xctest_method
+    - explicit_init
+    - extension_access_modifier
+    - fallthrough
+    - fatal_error_message
+    - file_header
+    - file_name
+    - first_where
+    - flatmap_over_map_reduce
+    - identical_operands
+    - joined_default_parameter
+    - legacy_random
+    - let_var_whitespace
+    - last_where
+    - literal_expression_end_indentation
+    - lower_acl_than_parent
+    - modifier_order
+    - nimble_operator
+    - nslocalizedstring_key
+    - object_literal
+    - operator_usage_whitespace
+    - overridden_super_call
+    - override_in_extension
+    - pattern_matching_keywords
+    - private_action
+    - private_outlet
+    - prohibited_interface_builder
+    - prohibited_super_call
+    - quick_discouraged_call
+    - quick_discouraged_focused_test
+    - quick_discouraged_pending_test
+    - reduce_into
+    - redundant_nil_coalescing
+    - redundant_type_annotation
+    - single_test_class
+    - sorted_first_last
+    - static_operator
+    - strong_iboutlet
+    - toggle_bool
+    - unavailable_function
+    - unneeded_parentheses_in_closure_argument
+    - unowned_variable_capture
+    - untyped_error_in_catch
+    - vertical_whitespace_closing_braces
+    - vertical_whitespace_opening_braces
+    - xct_specific_matcher
+    - yoda_condition
+
+# RULES ATTRIBUTES: Attributes should be on their own lines in functions and types, but on the same line as variables and imports.
+
+file_length: # Files should not span too many lines.
+    warning: 500
+    error: 750
+
+# Find all the available rules by running:
+# swiftlint rules
+
+# ---------------------------------------------------------------------------
+
+# CUSTOM RULES
+
+custom_rules:
+    alert_action:
+        name: "alert action"
+        regex: '[:blank:]+UIAlertAction\('
+        message: "Use AlertAction instead"
+        severity: error
+
+    static_let_capitalization:
+        name: "Static constants capitalization"
+        regex: 'static[:blank:]+let[:blank:]+[:upper:](?![:upper:])'
+        message: "Private static constants names should start with lowercase."
+        severity: error
+
+    private_final:
+        name: "Private final"
+        regex: 'final[:blank:]+private'
+        message: "Replace 'final private' with 'private final'."
+        severity: error
+
+    do_not_add_dot_zero_suffix:
+        name: "Do not add .0 suffix"
+        regex: '\:[:blank:]*(?:Float|Double|CGFloat)[:blank:]*=[:blank:]*[0-9]+\.0$'
+        message: "Remove .0 suffix."
+        severity: error
+
+    unsecure_print:
+        name: "Unsecure print"
+        regex: '(^|;)[:blank:]*print\('
+        message: "Avoid printing to public log"
+        severity: error
+
+    implicitly_assigned_raw_values:
+        name: "Implicitly Assigned Raw Values"
+        regex: 'case[:blank:]*([A-Za-z0-9\-_]+)[:blank:]*=[:blank:]*\"\1\"'
+        message: "Remove raw value literals that match the case name."
+        severity: error
+
+    optional_chaining_self:
+        name: "Optional Chaining Self"
+        regex: 'self\?\.'
+        message: "Use [weak self] guard let self = self else { return } instead of self?."
+        severity: error
+
+    default_case:
+        name: "Default case"
+        regex: 'switch[^\}]+case[ ]+\.[^\}]+\n[ ]+default:'
+        message: "Use extensive switch without default case."
+        severity: error
+
+    present_view_controller:
+        name: "Arbitrary presentation of view controllers is forbidden"
+        regex: 'present\(([:blank:]|\n)*[^:^,]+,([:blank:]|\n)*animated\:'
+        message: "Do modal presentation using a coordinator instead"
+        severity: error
+
+    dismiss_view_controller:
+        name: "Arbitrary dismissal of view controllers is forbidden"
+        regex: 'dismiss\(([:blank:]|\n)*animated\:'
+        message: "Do modal dismissal using a coordinator instead"
+        severity: error
+
+    image_literal:
+        name: "#imageLiteral is forbidden"
+        regex: '#imageLiteral'
+        message: "Using image literals is forbidden, use CommonsUI enums instead."
+        severity: error
+
+    image_rendering_mode:
+        name: "withRenderingMode is forbidden"
+        regex: '\.withRenderingMode\(\.'
+        message: "Using withRenderingMode method is forbidden, use CommonsUI template property instead."
+        severity: error
+
+    to_eventually_not_equal:
+        name: "The use of .toEventuallyNot(equal()) is discouraged"
+        regex: '.toEventuallyNot\(equal\('
+        message: "Use .toEventually(equal()) instead)"
+        severity: error
+
+    case_none:
+        name: "A 'none' case can cause unwanted type inference results"
+        regex: 'case([ ]+|\w+,)+none(\n|[ ]|,)'
+        message: "Rename 'none' case to avoid name collision with Optional.none case"
+        severity: error
+
+    config_variable_declaration:
+        name: "Infer variable type instead of tuple type"
+        regex : ':[ ][A-Z][A-Za-z]*\.Config[ ]=[ ]\((?!\))'
+        message: "Use tuple constructor (e.g. `let view = View.Config(...)`)"
+        severity: error

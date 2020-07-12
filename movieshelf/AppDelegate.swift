@@ -1,14 +1,20 @@
 import UIKit
+import CommonsUI
+import MovieListFlow
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
+    var appCoordinator: Coordinator?
+}
 
+extension AppDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        let viewController = UIViewController()
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = viewController
-        window?.makeKeyAndVisible()
+
+        if let window = window {
+            appCoordinator = RootCoordinator(window: window, coordinator: MovieListCoordinator())
+        }
         return true
     }
 }

@@ -2,8 +2,12 @@ PODS:
   - Alamofire (5.2.1)
   - Commons (1.0):
     - ThirdParties
+  - CommonsUI (1.0):
+    - Commons
+    - ThirdParties
   - Core (1.0):
     - Commons
+    - CommonsUI
     - Data
   - Data (1.0):
     - Commons
@@ -42,6 +46,7 @@ PODS:
 
 DEPENDENCIES:
   - Commons (from `./Modules/Commons`)
+  - CommonsUI (from `./Modules/CommonsUI`)
   - Core (from `./Modules/Core`)
   - Data (from `./Modules/Data`)
   - MovieListFlow (from `./Modules/MovieListFlow`)
@@ -63,6 +68,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   Commons:
     :path: "./Modules/Commons"
+  CommonsUI:
+    :path: "./Modules/CommonsUI"
   Core:
     :path: "./Modules/Core"
   Data:
@@ -75,7 +82,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
   Commons: ea01625858b9cf8ee797e3889fb262abec6af763
-  Core: d5c78ee37a9e2df809b78fd44192f5c7c117cefa
+  CommonsUI: b4ebca621ae03219ae62035da331d120b98400ef
+  Core: 65aa56600d13e0af514080b4f6e6c5f1b8c19766
   Data: 3fb715c72563752297b50cc8fdd90c7b79099805
   MovieListFlow: d351c1c47e312a02adfdbf962b77113c335a8142
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
@@ -89,6 +97,6 @@ SPEC CHECKSUMS:
   SwiftLint: 22ccbbe3b8008684be5955693bab135e0ed6a447
   ThirdParties: 0f724c4a52f1178e2e3a0351bcb44dac4e0193e2
 
-PODFILE CHECKSUM: 157c32a0d7148bf616be790f060f7a6cf89d32d6
+PODFILE CHECKSUM: 7938a58d3ddde5d5a2c0af4bbe3113c80276cc36
 
 COCOAPODS: 1.9.1

@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
-    s.name             = 'Core'
+    s.name             = 'CommonsUI'
     s.version          = '1.0'
-    s.summary          = 'Core umbrella'
+    s.summary          = 'CommonsUI classes and extensions'
     s.homepage         = 'https://github.com/leandrogaluzzi/movieshelf'
     s.license          = { :file => 'LICENSE' }
     s.author           = 'Leandro Galuzzi'
@@ -12,7 +12,6 @@ Pod::Spec.new do |s|
 
     s.source_files = 'Classes/**/*.{swift}'
 
-    s.dependency 'Data'
+    s.dependency 'ThirdParties'
     s.dependency 'Commons'
-    s.dependency 'CommonsUI'
 end

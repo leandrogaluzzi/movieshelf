@@ -9,6 +9,7 @@ workspace 'movieshelf'
 def modules
   pod 'ThirdParties', :path => './Modules/ThirdParties'
   pod 'Commons', :path => './Modules/Commons'
+  pod 'CommonsUI', :path => './Modules/CommonsUI'
   pod 'Data', :path => './Modules/Data'
   pod 'Core', :path => './Modules/Core'
   pod 'MovieListFlow', :path => './Modules/MovieListFlow'

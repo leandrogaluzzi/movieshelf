@@ -4,17 +4,13 @@ import MovieListFlow
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    var window: UIWindow?
-    var appCoordinator: Coordinator?
+    var rootCoordinator: RootCoordinator?
 }
 
 extension AppDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         setup()
-        window = UIWindow(frame: UIScreen.main.bounds)
-        if let window = window {
-            appCoordinator = RootCoordinator(window: window, coordinator: MovieListCoordinator())
-        }
+        rootCoordinator = RootCoordinator(coordinator: MovieListCoordinator())
         return true
     }
 }

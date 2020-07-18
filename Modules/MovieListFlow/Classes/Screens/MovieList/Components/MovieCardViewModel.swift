@@ -6,6 +6,7 @@ import RxCocoa
 
 protocol MovieCardViewModelling: ViewModelling {
     var title: Driver<String?> { get }
+    var overview: Driver<String?> { get }
 }
 
 final class MovieCardViewModel {
@@ -29,4 +30,5 @@ extension MovieCardViewModel: MovieCardViewModelling {
     var modelledView: ModelledView { return MovieCardView(viewModel: self) }
 
     var title: Driver<String?> { return movieDriver.map { $0?.title } }
+    var overview: Driver<String?> { return movieDriver.map { $0?.overview } }
 }

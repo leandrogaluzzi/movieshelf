@@ -1,5 +1,6 @@
 import Foundation
 import RxSwift
+import RxCocoa
 
 public protocol MovieRepositoring {
     func fetchMovieList() -> Completable
@@ -8,20 +9,21 @@ public protocol MovieRepositoring {
 
 struct MovieRepository: MovieRepositoring {
     private let remote: RemoteMovieDataSourcing
-    private let persistance: PersistenceMovieDataSourcing
+    private let memory: MemoryMovieDataSourcing
 
-    init(remote: RemoteMovieDataSourcing, persistance: PersistenceMovieDataSourcing) {
+    init(remote: RemoteMovieDataSourcing, memory: MemoryMovieDataSourcing) {
         self.remote = remote
-        self.persistance = persistance
+        self.memory = memory
     }
 
     func fetchMovieList() -> Completable {
         return remote
             .fetchMovieList()
-            .flatMapCompletable { self.persistance.persistMovieList(movies: $0) }
+            .flatMapCompletable { self.memory.saveMovieList($0) }
     }
 
     func observeMovieList() -> Observable<[Movie]> {
-        return persistance.observeMovieList()
+        return memory
+            .observeMovieList()
     }
 }

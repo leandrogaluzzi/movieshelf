@@ -4,7 +4,7 @@ public struct DataDependency {
     public let movieRepository: MovieRepositoring
 
     private init() {
-        movieRepository = MovieRepository(remote: RemoteMovieDataSource(), persistance: PersistenceMovieDataSource())
+        movieRepository = MovieRepository(remote: RemoteMovieDataSource(), memory: MemoryMovieDataSource())
     }
 
     public static func build() -> DataDependency {

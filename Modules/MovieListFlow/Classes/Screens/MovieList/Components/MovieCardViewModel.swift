@@ -17,7 +17,7 @@ final class MovieCardViewModel {
         self.id = id
         self.movieRepository = movieRepository
     }
-    
+
     var movieDriver: Driver<Movie?> {
         return Driver.just(nil)
 //        movieRepository

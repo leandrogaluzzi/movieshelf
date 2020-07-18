@@ -2,8 +2,11 @@ import Foundation
 import CommonsUI
 import Data
 import RxSwift
+import RxCocoa
 
-protocol MovieListViewModelling: ViewModelling {}
+protocol MovieListViewModelling: ViewModelling {
+    var components: Driver<[ViewModelling]> { get }
+}
 
 final class MovieListViewModel {
     private let movieRepository: MovieRepositoring
@@ -24,4 +27,11 @@ final class MovieListViewModel {
 
 extension MovieListViewModel: MovieListViewModelling {
     var modelledView: ModelledView { MovieListView(viewModel: self) }
+
+    var components: Driver<[ViewModelling]> {
+        return movieRepository
+            .observeMovieList()
+            .map { $0.map { $0.id }.map { MovieCardViewModel(id: $0) } }
+            .asDriver(onErrorJustReturn: [])
+    }
 }

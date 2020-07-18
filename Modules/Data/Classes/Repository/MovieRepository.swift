@@ -5,6 +5,7 @@ import RxCocoa
 public protocol MovieRepositoring {
     func fetchMovieList() -> Completable
     func observeMovieList() -> Observable<[Movie]>
+    func observeMovie(id: String) -> Observable<Movie?>
 }
 
 struct MovieRepository: MovieRepositoring {
@@ -25,5 +26,10 @@ struct MovieRepository: MovieRepositoring {
     func observeMovieList() -> Observable<[Movie]> {
         return memory
             .observeMovieList()
+    }
+
+    func observeMovie(id: String) -> Observable<Movie?> {
+        return memory
+            .observeMovie(id: id)
     }
 }

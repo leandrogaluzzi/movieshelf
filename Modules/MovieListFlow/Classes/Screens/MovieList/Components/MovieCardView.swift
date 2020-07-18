@@ -16,12 +16,12 @@ final class MovieCardView: ModelledView {
 
     private let labelTitle: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.white
+        label.textColor = UIColor.black
+        label.numberOfLines = 0
         return label
     }()
 
     override func setupView() {
-        backgroundColor = UIColor.black
         addSubview(labelTitle)
     }
 

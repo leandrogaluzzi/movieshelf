@@ -30,7 +30,7 @@ final class MovieListView: ModelledView {
     }()
 
     override func setupView() {
-        backgroundColor = UIColor.red
+        backgroundColor = UIColor.lightGray
         addSubview(scrollView)
         scrollView.addSubview(stackView)
     }

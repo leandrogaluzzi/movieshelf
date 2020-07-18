@@ -19,15 +19,14 @@ final class MovieCardViewModel {
     }
 
     var movieDriver: Driver<Movie?> {
-        return Driver.just(nil)
-//        movieRepository
-//            .observeMovieList()
-//            .filter { $0.first(where: { $0.id == self.id }) }
+        return movieRepository
+            .observeMovie(id: self.id)
+            .asDriver(onErrorJustReturn: nil)
     }
 }
 
 extension MovieCardViewModel: MovieCardViewModelling {
     var modelledView: ModelledView { return MovieCardView(viewModel: self) }
 
-    var title: Driver<String?> { return Driver.just("title") }
+    var title: Driver<String?> { return movieDriver.map { $0?.title } }
 }

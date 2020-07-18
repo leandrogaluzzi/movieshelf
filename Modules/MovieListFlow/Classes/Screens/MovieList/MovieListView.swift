@@ -14,11 +14,22 @@ final class MovieListView: ModelledView {
 
     private var viewModel: MovieListViewModelling { return vm as! MovieListViewModelling }
 
+    private let activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.hidesWhenStopped = true
+        return activityIndicator
+    }()
+
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.alwaysBounceVertical = true
         scrollView.showsVerticalScrollIndicator = false
         return scrollView
+    }()
+
+    private let refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        return refreshControl
     }()
 
     private let stackView: UIStackView = {
@@ -30,18 +41,18 @@ final class MovieListView: ModelledView {
     }()
 
     override func setupView() {
-        backgroundColor = UIColor.lightGray
+        backgroundColor = UIColor.lightText
+        addSubview(activityIndicator)
         addSubview(scrollView)
         scrollView.addSubview(stackView)
-    }
-
-    private func configureViews(content: [UIView]) {
-        content.forEach { view in
-            stackView.addArrangedSubview(view)
-        }
+        scrollView.refreshControl = refreshControl
     }
 
     override func setupConstraints() {
+        activityIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+
         scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -56,8 +67,29 @@ final class MovieListView: ModelledView {
             .components
             .drive(onNext: { [weak self] viewModels in
                 guard let self = self else { return }
-                self.configureViews(content: viewModels.map { $0.modelledView })
+                self.stackView.configureViews(viewModels.map { $0.modelledView })
             })
+            .disposed(by: disposeBag)
+
+        refreshControl
+            .rx
+            .controlEvent(.valueChanged)
+            .bind(onNext: viewModel.startRefreshing)
+            .disposed(by: disposeBag)
+
+        viewModel
+            .isRefreshing
+            .drive(refreshControl.rx.isRefreshing)
+            .disposed(by: disposeBag)
+
+        viewModel
+            .isLoading
+            .drive(activityIndicator.rx.isAnimating)
+            .disposed(by: disposeBag)
+
+        viewModel
+            .isLoading
+            .drive(scrollView.rx.isHidden)
             .disposed(by: disposeBag)
     }
 }

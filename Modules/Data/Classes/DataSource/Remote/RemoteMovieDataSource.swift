@@ -3,13 +3,13 @@ import RxSwift
 import Moya
 
 protocol RemoteMovieDataSourcing {
-    func fetchMovieList() -> Single<[Movie]>
+    func fetchMovieList(page: Int) -> Single<MovieList>
     func fetchGenres() -> Single<[Genre]>
 }
 
 class RemoteMovieDataSource: RemoteDataSource, RemoteMovieDataSourcing {
-    func fetchMovieList() -> Single<[Movie]> {
-        let response: Single<MovieListResponse> = request(target: MovieAPI.fetchMovieList)
+    func fetchMovieList(page: Int) -> Single<MovieList> {
+        let response: Single<APIMovieList> = request(target: MovieAPI.fetchMovieList(page: page))
         return response.map { $0.toModel() }
     }
 
@@ -20,7 +20,7 @@ class RemoteMovieDataSource: RemoteDataSource, RemoteMovieDataSourcing {
 }
 
 private enum MovieAPI {
-    case fetchMovieList
+    case fetchMovieList(page: Int)
     case fetchGenres
 }
 
@@ -39,6 +39,13 @@ extension MovieAPI: TargetType {
     }
 
     var task: Task {
-        return .requestParameters(parameters: ["api_key": Environment.apiKey], encoding: URLEncoding.queryString)
+        var parameters: [String: Any] = ["api_key": Environment.apiKey]
+        switch self {
+        case .fetchMovieList(let page):
+            parameters["page"] = page
+        case .fetchGenres:
+            break
+        }
+        return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
     }
 }

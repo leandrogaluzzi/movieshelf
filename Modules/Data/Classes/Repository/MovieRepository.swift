@@ -3,9 +3,11 @@ import RxSwift
 import RxCocoa
 
 public protocol MovieRepositoring {
-    func fetchMovieList() -> Completable
+    func fetchMovieList(page: Int) -> Completable
     func observeMovieList() -> Observable<[Movie]>
     func observeMovie(id: String) -> Observable<Movie?>
+    func observeIsNextPageAvailable() -> Observable<Bool>
+    func reset()
 }
 
 struct MovieRepository: MovieRepositoring {
@@ -17,19 +19,25 @@ struct MovieRepository: MovieRepositoring {
         self.memory = memory
     }
 
-    func fetchMovieList() -> Completable {
+    func fetchMovieList(page: Int) -> Completable {
         return remote
-            .fetchMovieList()
+            .fetchMovieList(page: page)
             .flatMapCompletable { self.memory.saveMovieList($0) }
     }
 
     func observeMovieList() -> Observable<[Movie]> {
-        return memory
-            .observeMovieList()
+        return memory.observeMovieList()
     }
 
     func observeMovie(id: String) -> Observable<Movie?> {
-        return memory
-            .observeMovie(id: id)
+        return memory.observeMovie(id: id)
+    }
+
+    func observeIsNextPageAvailable() -> Observable<Bool> {
+        return memory.observeIsNextPageAvailable()
+    }
+
+    func reset() {
+        return memory.reset()
     }
 }

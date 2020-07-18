@@ -14,6 +14,8 @@ final class MovieCardView: ModelledView {
 
     private var viewModel: MovieCardViewModelling { return vm as! MovieCardViewModelling }
 
+    private let buttonOpenMovieDetail = UIButton()
+
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -36,6 +38,7 @@ final class MovieCardView: ModelledView {
 
     override func setupView() {
         addSubview(stackView)
+        addSubview(buttonOpenMovieDetail)
         stackView.addArrangedSubview(labelTitle)
         stackView.addArrangedSubview(labelOverview)
     }
@@ -44,10 +47,16 @@ final class MovieCardView: ModelledView {
         stackView.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(Constraint.Label.edges)
         }
+
+        buttonOpenMovieDetail.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(Constraint.Label.edges)
+        }
     }
 
     override func bindRx() {
         viewModel.title.drive(labelTitle.rx.text).disposed(by: disposeBag)
         viewModel.overview.drive(labelOverview.rx.text).disposed(by: disposeBag)
+
+        buttonOpenMovieDetail.rx.tap.bind(onNext: viewModel.buttonOpenMovieDetailPressed).disposed(by: disposeBag)
     }
 }

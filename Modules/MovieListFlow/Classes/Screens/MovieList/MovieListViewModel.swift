@@ -14,14 +14,17 @@ protocol MovieListViewModelling: ViewModelling {
 }
 
 final class MovieListViewModel {
+    private unowned let navigation: MovieListNavigating
     private let movieRepository: MovieRepositoring
     let loadMoreViewModel: LoadMoreViewModelling
     private let isRefreshingVar = BehaviorRelay<Bool>(value: false)
     private let isLoadingVar = BehaviorRelay<Bool>(value: true)
     private let disposeBag = DisposeBag()
 
-    init(loadMoreViewModel: LoadMoreViewModelling = LoadMoreViewModel(),
+    init(navigation: MovieListNavigating,
+         loadMoreViewModel: LoadMoreViewModelling = LoadMoreViewModel(),
          movieRepository: MovieRepositoring = Injector.dependencies.movieRepository) {
+        self.navigation = navigation
         self.loadMoreViewModel = loadMoreViewModel
         self.movieRepository = movieRepository
         fetchMovies()
@@ -46,7 +49,7 @@ extension MovieListViewModel: MovieListViewModelling {
         return movieRepository
             .observeMovieList()
             .map { $0.map { $0.id } }
-            .map { $0.map { MovieCardViewModel(id: $0) } }
+            .map { $0.map { MovieCardViewModel(id: $0, navigation: self.navigation) } }
             .map { $0 + [self.loadMoreViewModel] }
             .asDriver(onErrorJustReturn: [])
     }

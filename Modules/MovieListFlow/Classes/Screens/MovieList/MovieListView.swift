@@ -6,7 +6,7 @@ import RxSwift
 final class MovieListView: ModelledView {
     private struct Constraint {
         struct Stack {
-            static let spacing: CGFloat = 16
+            static let spacing: CGFloat = 0
         }
     }
 
@@ -41,7 +41,7 @@ final class MovieListView: ModelledView {
     }()
 
     override func setupView() {
-        backgroundColor = UIColor.white
+        backgroundColor = ColorStylesheet.Greyscale.snow.light
         addSubview(activityIndicator)
         addSubview(scrollView)
         scrollView.addSubview(stackView)

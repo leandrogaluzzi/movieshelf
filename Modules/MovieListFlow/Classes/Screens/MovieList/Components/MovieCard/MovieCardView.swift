@@ -5,7 +5,12 @@ import RxCocoa
 
 final class MovieCardView: ModelledView {
     private struct Constraint {
-        struct Label {
+        struct CardView {
+            static let cornerRadius: CGFloat = 8
+            static let edges: CGFloat = 16
+        }
+
+        struct StackView {
             static let edges: CGFloat = 16
         }
     }
@@ -15,6 +20,12 @@ final class MovieCardView: ModelledView {
     private var viewModel: MovieCardViewModelling { return vm as! MovieCardViewModelling }
 
     private let buttonOpenMovieDetail = UIButton()
+
+    private let cardView: CardView = {
+        let cardView = CardView(cornerRadius: Constraint.CardView.cornerRadius)
+        cardView.backgroundColor = ColorStylesheet.white
+        return cardView
+    }()
 
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -32,24 +43,29 @@ final class MovieCardView: ModelledView {
     private let labelOverview: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.black
-        label.numberOfLines = 0
+        label.numberOfLines = 3
         return label
     }()
 
     override func setupView() {
-        addSubview(stackView)
+        addSubview(cardView)
         addSubview(buttonOpenMovieDetail)
+        cardView.addSubview(stackView)
         stackView.addArrangedSubview(labelTitle)
         stackView.addArrangedSubview(labelOverview)
     }
 
     override func setupConstraints() {
-        stackView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(Constraint.Label.edges)
+        buttonOpenMovieDetail.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
 
-        buttonOpenMovieDetail.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(Constraint.Label.edges)
+        cardView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(Constraint.CardView.edges)
+        }
+
+        stackView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(Constraint.StackView.edges)
         }
     }
 

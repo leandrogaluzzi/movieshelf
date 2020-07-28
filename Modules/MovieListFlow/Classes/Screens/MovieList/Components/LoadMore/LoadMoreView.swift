@@ -15,7 +15,11 @@ final class LoadMoreView: ModelledView {
 
     private var viewModel: LoadMoreViewModelling { return vm as! LoadMoreViewModelling }
 
-    private let buttonLoadMore = UIButton()
+    private let buttonLoadMore: UIButton = {
+        let button = UIButton()
+        button.setTitleColor(UIColor.black, for: .normal)
+        return button
+    }()
 
     override func setupView() {
         addSubview(buttonLoadMore)

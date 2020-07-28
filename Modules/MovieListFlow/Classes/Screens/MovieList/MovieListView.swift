@@ -41,7 +41,7 @@ final class MovieListView: ModelledView {
     }()
 
     override func setupView() {
-        backgroundColor = UIColor.lightText
+        backgroundColor = UIColor.white
         addSubview(activityIndicator)
         addSubview(scrollView)
         scrollView.addSubview(stackView)

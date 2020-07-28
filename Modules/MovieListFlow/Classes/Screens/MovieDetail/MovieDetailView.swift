@@ -9,7 +9,7 @@ final class MovieDetailView: ModelledView {
     private var viewModel: MovieDetailViewModelling { return vm as! MovieDetailViewModelling }
 
     override func setupView() {
-        backgroundColor = UIColor.red
+        backgroundColor = UIColor.white
     }
 
     override func setupConstraints() {}

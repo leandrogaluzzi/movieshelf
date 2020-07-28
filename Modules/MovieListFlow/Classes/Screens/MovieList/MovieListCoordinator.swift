@@ -1,15 +1,15 @@
 import Foundation
 import CommonsUI
 
-public final class MovieListCoordinator: NavigationControllerCoordinator {
-    override public var viewController: UIViewController? {
+public final class MovieListCoordinator {
+    public init() {}
+
+    public lazy var mainViewController: UIViewController? = {
         let viewModel = MovieListViewModel(navigation: self)
         let viewController = ViewController(viewModel: viewModel)
         viewController.title = "Movie Shelves App"
-        let navigationController = UINavigationController(rootViewController: viewController)
-        self.navigationController = navigationController
-        return navigationController
-    }
+        return UINavigationController(rootViewController: viewController)
+    }()
 }
 
 extension MovieListCoordinator: MovieListNavigating {}

@@ -12,6 +12,9 @@ PODS:
   - Data (1.0):
     - Commons
     - ThirdParties
+  - Kingfisher (5.14.1):
+    - Kingfisher/Core (= 5.14.1)
+  - Kingfisher/Core (5.14.1)
   - MovieListFlow (1.0):
     - Core
   - Moya (14.0.0):
@@ -26,6 +29,10 @@ PODS:
   - RxCocoa (5.1.1):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
+  - RxKingfisher (1.0.0):
+    - Kingfisher (~> 5)
+    - RxCocoa (~> 5)
+    - RxSwift (~> 5)
   - RxRealm (3.1.0):
     - RealmSwift (~> 5.2)
     - RxSwift (~> 5.0)
@@ -39,6 +46,7 @@ PODS:
   - ThirdParties/Pods (1.0):
     - Moya
     - RxCocoa
+    - RxKingfisher
     - RxRealm
     - RxSwift
     - SnapKit
@@ -55,10 +63,12 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
+    - Kingfisher
     - Moya
     - Realm
     - RealmSwift
     - RxCocoa
+    - RxKingfisher
     - RxRealm
     - RxRelay
     - RxSwift
@@ -85,17 +95,19 @@ SPEC CHECKSUMS:
   CommonsUI: b4ebca621ae03219ae62035da331d120b98400ef
   Core: 65aa56600d13e0af514080b4f6e6c5f1b8c19766
   Data: 3fb715c72563752297b50cc8fdd90c7b79099805
+  Kingfisher: 8050bc6f7f68cbf3908bd04df7ccbac188f6d6d6
   MovieListFlow: d351c1c47e312a02adfdbf962b77113c335a8142
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   Realm: f749c723e272f08fdf1939af5e61d2bd09b203e8
   RealmSwift: bf0ab78b52c5bafba8b3ad73be8dfb4c1ea5cf01
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
+  RxKingfisher: 0f07678aca3e6a20143dfba67ec2d2c70d443a9a
   RxRealm: 50e5fe5c1f22518205afbb313fbc5580d73bc586
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftLint: 22ccbbe3b8008684be5955693bab135e0ed6a447
-  ThirdParties: 0f724c4a52f1178e2e3a0351bcb44dac4e0193e2
+  ThirdParties: 901d5b5a019edeb1b3616ffa83a78ef23d0af282
 
 PODFILE CHECKSUM: 7938a58d3ddde5d5a2c0af4bbe3113c80276cc36
 

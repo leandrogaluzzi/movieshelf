@@ -12,6 +12,7 @@ final class MovieCardView: ModelledView {
 
         struct StackView {
             static let edges: CGFloat = 16
+            static let spacing: CGFloat = 8
         }
     }
 
@@ -30,6 +31,7 @@ final class MovieCardView: ModelledView {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
+        stackView.spacing = Constraint.StackView.spacing
         return stackView
     }()
 

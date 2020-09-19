@@ -17,6 +17,7 @@ Pod::Spec.new do |s|
       ss.dependency 'SwiftLint'
       ss.dependency 'Moya'
       ss.dependency 'RxRealm'
+      ss.dependency 'RxKingfisher'
     end
 
 end

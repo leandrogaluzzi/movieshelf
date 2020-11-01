@@ -1,9 +1,11 @@
 import Foundation
 import Data
 import MovieListFlow
+import Core
 
 final class Dependencies {
-    let data: DataDependency
+    private let data: DataDependency
+    let imageFetcher: ImageFetching = ImageFetcher()
 
     init() {
         data = DataDependency.build()

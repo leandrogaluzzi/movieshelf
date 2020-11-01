@@ -35,6 +35,11 @@ final class MovieCardView: ModelledView {
         return stackView
     }()
 
+    private let imageView: UIImageView = {
+        let imageView = UIImageView()
+        return imageView
+    }()
+
     private let labelTitle: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.black
@@ -53,6 +58,7 @@ final class MovieCardView: ModelledView {
         addSubview(cardView)
         addSubview(buttonOpenMovieDetail)
         cardView.addSubview(stackView)
+        stackView.addArrangedSubview(imageView)
         stackView.addArrangedSubview(labelTitle)
         stackView.addArrangedSubview(labelOverview)
     }
@@ -76,5 +82,10 @@ final class MovieCardView: ModelledView {
         viewModel.overview.drive(labelOverview.rx.text).disposed(by: disposeBag)
 
         buttonOpenMovieDetail.rx.tap.bind(onNext: viewModel.buttonOpenMovieDetailPressed).disposed(by: disposeBag)
+
+        viewModel
+            .poster
+            .drive(imageView.rx.image)
+            .disposed(by: disposeBag)
     }
 }
